@@ -60,9 +60,6 @@ def show_information(): #function to show the user the content/information about
     print("\n =====INFORMATION=====")
     print("")
     webbrowser.open('https://en.wikipedia.org/wiki/Formula_One')
-
-def play_quiz(): #function to start the quiz
-    pass
     
 
 #dictionairy for the questions
@@ -85,7 +82,7 @@ questions = {
     15: "15.F1 is the most dangerous sport. True or False? \n ANSWER:"
 }
  
-
+#dictionairy for the answers to the questions
 answers = {
     1: "1",
     2: "2",
@@ -104,6 +101,29 @@ answers = {
     15: "false"
 }
 
+#Play quiz function/code - piece of code where the main part of the code is
+def play_quiz():
+    clear_text()
+    banner()
+
+    #asking for name
+    name = input("What is your name?: ")
+
+    #asking for age
+    clear_text()
+    banner()
+    while True:
+        age = input("Before we start please enter your age in digits:")
+
+        if age < MIN_AGE or age > MAX_AGE:
+            print("You are too young or too old to do this quiz!!")
+            input("Please press enter to return to return to the menu")
+            return
+        
+
+    #asking if user is ready to start
+    clear_text()
+    banner()
 
 #Main code
 
@@ -116,7 +136,7 @@ def main(): #function calls to the banner and welcome text function
         choice=cleaned_input(choice)
 
         if choice == "1":
-            clear_text()
+            play_quiz()
 
         elif choice == "2":
             clear_text()
