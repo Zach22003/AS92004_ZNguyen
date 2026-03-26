@@ -113,17 +113,29 @@ def play_quiz():
     clear_text()
     banner()
     while True:
-        age = input("Before we start please enter your age in digits:")
+        age = input("Before we start please enter your age in digits: ")
 
-        if age < MIN_AGE or age > MAX_AGE:
+        if age.isdigit():
+            age = int(age)
+            break
+        else:
+            print("Please enter a number in digits")
+
+
+    if age < MIN_AGE or age > MAX_AGE:
             print("You are too young or too old to do this quiz!!")
             input("Please press enter to return to return to the menu")
             return
-        
-
-    #asking if user is ready to start
+    
+    #asking if user ready
     clear_text()
     banner()
+    ready = cleaned_input(input("Are you ready to start the quiz? (Yes or No): "))
+    if ready not in ["yes", "y"]:
+        print("Come back when you are ready for the quiz!")
+        return
+        
+
 
 #Main code
 
