@@ -6,6 +6,9 @@
 #V3 - put in a list for the questions
 #V4 - started working on main function and some other functions. webbrowser
 #V5 - worked on insructions, show information, and changed list to dictionairy and added answers
+#V6 - Worked on name and age input
+#V7 - Finished age input and asking if user ready
+#V8 - The quiz part is now finished all i need to do left is the score, final score at the end and also the end page
 
 #Import modules
 import os #this module will clear the terminal
@@ -47,7 +50,6 @@ def welcome_text(): #A welcome text player will see before they do this quiz, al
     print("3. Information")
     print("4. Exit")
 
-
 def show_instructions(): #function to show the user the instructions for the quiz
     print("\n =====INSTRUCTIONS=====")
     print("\nAnswer each questiony by typing in your answer or choice")
@@ -63,23 +65,22 @@ def show_information(): #function to show the user the content/information about
     
 
 #dictionairy for the questions
-
 questions = {
-    1: "1.How many drivers on an F1 Grid? \n 1.22 \n 2.20 \n 3.18 \n 4.26 \nAnswer:",
-    2: "2.Which f1 driver has won the most races? \n 1.Max Verstappen \n 2.Lewis Hamilton \n 3.Ayrton Senna \n 4.Michael Schumacher \nAnswer:",
-    3: "3.Max Verstappen won the World Drivers Championships in 2025. True or False? \n ANSWER:",
-    4: "4.What country is the Red Bull Ring in? \nAnswer:",
-    5: "5.What year was the first Formula 1 race? \n 1.2000 \n 2.1900 \n 3.1950 \n 4.1980 \nAnswer:",
-    6: "6.How many points does the driver who comes first get? \n ANSWER:",
-    7: "7.Which driver has had the most total starts? \n 1.Max Verstappen \n 2.Lewis Hamilton \n 3.Fernando Alonso \n 4.Michael Schumacher \nAnswer:",
-    8: "8.Who was the youngest driver to start a race? \n 1.Max Verstappen \n 2.Kimi Antonelli \n 3.Oliver Bearman \n 4.Lance stroll \nAnswer:",
-    9: "9.Which team has won the most constructers? \n. 1.Ferrari \n 2.Mclaren \n 3.Redbull \n 4.Mercedes \nAnswer:",
-    10: "10.Which of the curcuits are not on the 2026 f1 calendar? \n 1.Circuit De Monaco, Monaco \n 2.Red Bull Ring, Spielberg \n 3.Albert Park Circuit, Melbourne \n 4.Intercity Istanbul Park, Istanbul \nAnswer:",
-    11: "11.What is the least amount of races in a season ever? \n 1.5 races \n 2.8 races \n 3.7 races \n 4.3 races \nAnswer:",
-    12: "12.Which year had the most races in a season? \n 1.2024 \n 2.2018 \n 3.2025 \n 4.2012 \nAnswer:",
-    13: "13.What two Grand Prix's has been held every Formula 1 season? \n 1.Spanish and British Grand prix \n 2.Dutch and British Grand prix \n 3. Monaco and British Grand prix \n 4. Italian and British Grand prix \nAnswer:",
-    14: "14.What Grand Prix is the first to host a night race? \n 1.Abu Dhabi \n 2.Singapore \n 3.Miami \n 4.Las Vegas \nAnswer:",
-    15: "15.F1 is the most dangerous sport. True or False? \n ANSWER:"
+    1: "1.How many drivers on an F1 Grid? \n 1.22 \n 2.20 \n 3.18 \n 4.26 \n",
+    2: "2.Which f1 driver has won the most races? \n 1.Max Verstappen \n 2.Lewis Hamilton \n 3.Ayrton Senna \n 4.Michael Schumacher \n",
+    3: "3.Max Verstappen won the World Drivers Championships in 2025. True or False? \n ",
+    4: "4.What country is the Red Bull Ring in? \n",
+    5: "5.What year was the first Formula 1 race? \n 1.2000 \n 2.1900 \n 3.1950 \n 4.1980 \n",
+    6: "6.How many points does the driver who comes first get? \n ",
+    7: "7.Which driver has had the most total starts? \n 1.Max Verstappen \n 2.Lewis Hamilton \n 3.Fernando Alonso \n 4.Michael Schumacher \n",
+    8: "8.Who was the youngest driver to start a race? \n 1.Max Verstappen \n 2.Kimi Antonelli \n 3.Oliver Bearman \n 4.Lance stroll \n",
+    9: "9.Which team has won the most constructers? \n. 1.Ferrari \n 2.Mclaren \n 3.Redbull \n 4.Mercedes \n",
+    10: "10.Which of the curcuits are not on the 2026 f1 calendar? \n 1.Circuit De Monaco, Monaco \n 2.Red Bull Ring, Spielberg \n 3.Albert Park Circuit, Melbourne \n 4.Intercity Istanbul Park, Istanbul \n",
+    11: "11.What is the least amount of races in a season ever? \n 1.5 races \n 2.8 races \n 3.7 races \n 4.3 races \n",
+    12: "12.Which year had the most races in a season? \n 1.2024 \n 2.2018 \n 3.2025 \n 4.2012 \n",
+    13: "13.What two Grand Prix's has been held every Formula 1 season? \n 1.Spanish and British Grand prix \n 2.Dutch and British Grand prix \n 3. Monaco and British Grand prix \n 4. Italian and British Grand prix \n",
+    14: "14.What Grand Prix is the first to host a night race? \n 1.Abu Dhabi \n 2.Singapore \n 3.Miami \n 4.Las Vegas \n",
+    15: "15.F1 is the most dangerous sport. True or False? \n "
 }
  
 #dictionairy for the answers to the questions
@@ -130,15 +131,37 @@ def play_quiz():
     #asking if user ready
     clear_text()
     banner()
-    ready = cleaned_input(input("Are you ready to start the quiz? (Yes or No): "))
-    if ready not in ["yes", "y"]:
+    ready = cleaned_input(input("Are you ready to start the quiz? (Yes or No): ")) #asks the user if they are ready or not
+    if ready not in ["yes", "y"]: #if they are ready to start the quiz and types in yes or y it starts but if not it returns to menu
         print("Come back when you are ready for the quiz!")
         return
-        
+    
+    clear_text() 
+    print(f"Welcome to this quiz {name}") #welcomes the player to the quiz and tells them to start, takes input(name) and turns it to output
+    input("Please press enter to start")
+
+    score = 0
+
+    for key, question in questions.items():
+        clear_text()
+        print(question)
+        user_answer = cleaned_input(input("Answer: "))
+        correct_answers = answers[key]
+
+        if user_answer == correct_answers:
+            print("that is correct!!")
+            score += 1
+        else:
+            print(f"That answer was not incorrect, the correct answer was {correct_answers}")
+
+        input("press enter to go to the next question ")
+
+        clear_text()
+        print("==== the quiz is finished!! ====")
+        print(f"Name: {name}")
 
 
 #Main code
-
 def main(): #function calls to the banner and welcome text function
     clear_text
     while True:
@@ -163,7 +186,6 @@ def main(): #function calls to the banner and welcome text function
                 clear_text()
                 continue
     
-
         elif choice == "3":
             clear_text()
             show_information()
