@@ -9,6 +9,7 @@
 #V6 - Worked on name and age input
 #V7 - Finished age input and asking if user ready
 #V8 - The quiz part is now finished all i need to do left is the score, final score at the end and also the end page
+#V9 - need to add a system where users can see what they answered for each question at the end.
 
 #Import modules
 import os #this module will clear the terminal
@@ -74,7 +75,7 @@ questions = {
     6: "6.How many points does the driver who comes first get? \n ",
     7: "7.Which driver has had the most total starts? \n 1.Max Verstappen \n 2.Lewis Hamilton \n 3.Fernando Alonso \n 4.Michael Schumacher \n",
     8: "8.Who was the youngest driver to start a race? \n 1.Max Verstappen \n 2.Kimi Antonelli \n 3.Oliver Bearman \n 4.Lance stroll \n",
-    9: "9.Which team has won the most constructers? \n. 1.Ferrari \n 2.Mclaren \n 3.Redbull \n 4.Mercedes \n",
+    9: "9.Which team has won the most constructers? \n 1.Ferrari \n 2.Mclaren \n 3.Redbull \n 4.Mercedes \n",
     10: "10.Which of the curcuits are not on the 2026 f1 calendar? \n 1.Circuit De Monaco, Monaco \n 2.Red Bull Ring, Spielberg \n 3.Albert Park Circuit, Melbourne \n 4.Intercity Istanbul Park, Istanbul \n",
     11: "11.What is the least amount of races in a season ever? \n 1.5 races \n 2.8 races \n 3.7 races \n 4.3 races \n",
     12: "12.Which year had the most races in a season? \n 1.2024 \n 2.2018 \n 3.2025 \n 4.2012 \n",
@@ -102,6 +103,8 @@ answers = {
     15: "false"
 }
 
+question_numbers = 15 #number of questions in the quiz so that the final score can be number/the total number of questions which is 15
+
 #Play quiz function/code - piece of code where the main part of the code is
 def play_quiz():
     clear_text()
@@ -114,16 +117,16 @@ def play_quiz():
     clear_text()
     banner()
     while True:
-        age = input("Before we start please enter your age in digits: ")
+        age = input("Before we start please enter your age in digits: ") #asks the user for input of their age
 
         if age.isdigit():
             age = int(age)
             break
         else:
-            print("Please enter a number in digits")
+            print("Please enter a number in digits") #if they type their age in letters or anything else it will say to type in digits
 
 
-    if age < MIN_AGE or age > MAX_AGE:
+    if age < MIN_AGE or age > MAX_AGE: #if age is outside of the boundary they will be told they are too old or young and it will return to menu
             print("You are too young or too old to do this quiz!!")
             input("Please press enter to return to return to the menu")
             return
@@ -140,7 +143,7 @@ def play_quiz():
     print(f"Welcome to this quiz {name}") #welcomes the player to the quiz and tells them to start, takes input(name) and turns it to output
     input("Please press enter to start")
 
-    score = 0
+    score = 0 #starting score
 
     for key, question in questions.items():
         clear_text()
@@ -148,17 +151,19 @@ def play_quiz():
         user_answer = cleaned_input(input("Answer: "))
         correct_answers = answers[key]
 
-        if user_answer == correct_answers:
+        if user_answer == correct_answers: #player will either be told they got ans right or wrong if wrong they get told correct answer
             print("that is correct!!")
-            score += 1
+            score += 1 #for every question right they get +1 score
         else:
             print(f"That answer was not incorrect, the correct answer was {correct_answers}")
 
-        input("press enter to go to the next question ")
+        input("press enter to go to the next question ") #users press enter to go to next question through input
 
-        clear_text()
-        print("==== the quiz is finished!! ====")
-        print(f"Name: {name}")
+    clear_text() #what the users will see after the quiz is finished
+    print("==== the quiz is finished!! ====")
+    print(f"Name: {name}")
+    print(f"score: {score}/{question_numbers}") # scoring system out of 15
+    input("Please press enter to return to menu") #takes user back to menu
 
 
 #Main code
@@ -170,10 +175,10 @@ def main(): #function calls to the banner and welcome text function
         choice=input("Choose one of the options (1/2/3/4):") #tells user to either choose play quiz, info instruction or quit
         choice=cleaned_input(choice)
 
-        if choice == "1":
+        if choice == "1": #choice 1 will take players to the quiz
             play_quiz()
 
-        elif choice == "2":
+        elif choice == "2": #choice 2 will take players to the instructions
             clear_text()
             show_instructions()
             next = input("Type 'play' to start game or 'menu' to return to the menu: ")
@@ -186,7 +191,7 @@ def main(): #function calls to the banner and welcome text function
                 clear_text()
                 continue
     
-        elif choice == "3":
+        elif choice == "3": #choice 3 will take players to the info page
             clear_text()
             show_information()
             next = input("Type 'play' to start game or 'menu' to return to the menu: ")
@@ -199,7 +204,7 @@ def main(): #function calls to the banner and welcome text function
                 clear_text()
                 continue
 
-        elif choice == "4":
+        elif choice == "4": #choice 4 will make the code stop because players dont want to do it
             clear_text()
             print("Goodbye!")
             break
