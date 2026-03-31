@@ -144,6 +144,7 @@ def play_quiz():
     input("Please press enter to start")
 
     score = 0 #starting score
+    history = [] #this will store the data like the answers user do so at the end they can see what they answered wrong etc
 
     for key, question in questions.items():
         clear_text()
@@ -157,14 +158,30 @@ def play_quiz():
         else:
             print(f"That answer was not incorrect, the correct answer was {correct_answers}")
 
+        history.append({
+        "question" : question,
+        "your answer" : user_answer,
+        "correct answer" : correct_answers
+    })
+
         input("press enter to go to the next question ") #users press enter to go to next question through input
 
     clear_text() #what the users will see after the quiz is finished
+    banner()
     print("==== the quiz is finished!! ====")
     print(f"Name: {name}")
     print(f"score: {score}/{question_numbers}") # scoring system out of 15
-    input("Please press enter to return to menu") #takes user back to menu
+    see = cleaned_input(input("would you like to see your answers? (Yes or No): ")) #ask users if they want to see answers
 
+    if see == "yes":
+        clear_text
+        print("==== your answers ====") #answer history witht the question, what they answer and the correct answer
+        for entry in history:
+            print(f"Question: {entry['question']}")
+            print(f"Your answer: {entry['your answer']}")
+            print(f"Correct answer: {entry['correct answer']}\n")
+
+    input("Please press enter to return to menu") #takes user back to menu
 
 #Main code
 def main(): #function calls to the banner and welcome text function
